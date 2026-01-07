@@ -47,6 +47,7 @@
 		"sass-loader": "^12.0.0"
 	},
 	"prettier": {
-		"semi": false
+		"semi": false,
+  	"singleQuote": true
 	}
 }

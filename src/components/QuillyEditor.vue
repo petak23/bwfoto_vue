@@ -17,7 +17,7 @@ import Quill from 'quill' // Full build
 import { QuillyEditor } from 'vue-quilly'
 import 'quill/dist/quill.core.css' // Required
 import 'quill/dist/quill.snow.css' // For snow theme (optional)
-import '../front/css/quill.bwfoto.css' // Vlastné zmeny v téme
+import '../css/quill.bwfoto.css' // Vlastné zmeny v téme
 
 import { debounce } from 'lodash'
 
