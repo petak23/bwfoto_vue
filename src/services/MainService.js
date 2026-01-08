@@ -1,20 +1,20 @@
 import axios from 'axios'
 
-const baseUrl = document.getElementById('app').dataset.baseUrl + "/api/"
+const baseUrl = document.getElementById('app').dataset.baseUrl + '/api/'
 
 //axios.defaults.withCredentials = true;
 
 //for Tracy Debug Bar
-axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 const apiClient = axios.create({
 	baseURL: baseUrl,
 	withCredentials: false, // This is the default
 	headers: {
 		Accept: 'application/json',
-		'Content-Type': 'application/json'
+		'Content-Type': 'application/json',
 	},
-	timeout: 10000
+	timeout: 10000,
 })
 
 export default {
@@ -42,20 +42,20 @@ export default {
 		return apiClient.get('user/getuserinfo/' + id_user_main)
 	},
 	async testUserEmail(email) {
-		return apiClient.post('user/testuseremail', {email: email})
+		return apiClient.post('user/testuseremail', { email: email })
 	},
 	async testUserEmail2(email) {
-    try {
-      const response = await apiClient.post('user/testuseremail', {email: email})
-      return response
-    } catch (error) {
-      // Dôležité je spracovať chyby a vrátiť ich, aby ich komponenta mohla zachytiť
-      console.error("Chyba v MainService:testUserEmail => ", error);
-      throw error; // Prehodenie chyby, aby ju komponenta zachytila
-    }
-  },
+		try {
+			const response = await apiClient.post('user/testuseremail', { email: email })
+			return response
+		} catch (error) {
+			// Dôležité je spracovať chyby a vrátiť ich, aby ich komponenta mohla zachytiť
+			console.error('Chyba v MainService:testUserEmail => ', error)
+			throw error // Prehodenie chyby, aby ju komponenta zachytila
+		}
+	},
 	postForgottenPassword(email) {
-		return apiClient.post('user/forgottenpassword', {email: email})
+		return apiClient.post('user/forgottenpassword', { email: email })
 	},
 
 	// ---- sign ----
@@ -82,7 +82,7 @@ export default {
 	getSubmenuFront(main_menu_active) {
 		return apiClient.get('menu/getsubmenu/' + main_menu_active + '/front')
 	},
-	getOneMainMenuArticle(id_hlavne_menu){
+	getOneMainMenuArticle(id_hlavne_menu) {
 		return apiClient.get('menu/getonehlavnemenuarticle/' + id_hlavne_menu)
 	},
 	getOneMenuArticle(id_hlavne_menu_lang) {
@@ -112,7 +112,11 @@ export default {
 
 	// ---- documents ----
 	getFotogalery(id_hlavne_menu, filter = 1) {
-		return apiClient.get('documents/getfotogalery/' + id_hlavne_menu + (filter > 1 ? "?filter=" + filter : ""))
+		return apiClient.get(
+			'documents/getfotogalery/' +
+				id_hlavne_menu +
+				(filter > 1 ? '?filter=' + filter : '')
+		)
 	},
 	getFotoCollage(id) {
 		return apiClient.get('documents/getfotocollage/' + id)
@@ -121,11 +125,15 @@ export default {
 		return apiClient.get('documents/document/' + id_document)
 	},
 	getVisibleAttachments(id_hlavne_menu, group = '') {
-		return apiClient.get('documents/getvisibleattachments/' + parseInt(id_hlavne_menu) + (group.length ? '?group=' + group : ''))
+		return apiClient.get(
+			'documents/getvisibleattachments/' +
+				parseInt(id_hlavne_menu) +
+				(group.length ? '?group=' + group : '')
+		)
 	},
 	postUpdateDocItem(id, data) {
 		return apiClient.post('documents/update/' + id, data)
-        },
+	},
 	// ---- slider ----
 	getSlider(id = 1) {
 		return apiClient.get('slider/getall/' + id)
@@ -141,22 +149,26 @@ export default {
 
 	// ---- search ----
 	getSearch(inputname, searchquery) {
-		return apiClient.get('search', {params: {[inputname]: searchquery}})
+		return apiClient.get('search', { params: { [inputname]: searchquery } })
 	},
 
 	// ---- udaje ----
 	getFromUdaj(name) {
 		return apiClient.get('udaje/getfromudaj/' + name)
 	},
-	getFromSettings(name = "") {
-		return apiClient.get('udaje/getfromsettings' + (name.length ? '/'+name : ''))
+	getFromSettings(name = '') {
+		return apiClient.get(
+			'udaje/getfromsettings' + (name.length ? '/' + name : '')
+		)
 	},
 
-        // ---- news ----
+	// ---- news ----
 	getNews(limit = 0) {
-		return apiClient.get('homepage/getnews' + (limit > 0 && limit != 5 ? '/?limit=' + limit : ''))
+		return apiClient.get(
+			'homepage/getnews' + (limit > 0 && limit != 5 ? '/?limit=' + limit : '')
+		)
 	},
-        postUpdateNews(id, data) {
+	postUpdateNews(id, data) {
 		return apiClient.post('homepage/updatenews/' + id, data)
 	},
 	getDeleteNews(id) {
@@ -176,10 +188,8 @@ export default {
 		return apiClient.post('products/nakup', data)
 	},
 
-
-	
 	// --- from vuemeteo...
-	getMySettings() {
+	/*getMySettings() {
 		return apiClient.get('homepage/myappsettings')
 	},
 	getDevices() {
@@ -192,9 +202,9 @@ export default {
 		return apiClient.get('units'/*, { headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
-      "Cache-Control": "no-cache",
-      //"Content-Type": "application/x-www-form-urlencoded",
-    }}*/)
+			"Cache-Control": "no-cache",
+			//"Content-Type": "application/x-www-form-urlencoded",
+		}})
 	},
 	/*getMyUserData() {
 		return apiClient.get('user')
@@ -207,5 +217,5 @@ export default {
 	},*/
 	postLogIn(data) {
 		return apiClient.post('/login', data)
-	}
+	},
 }

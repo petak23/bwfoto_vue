@@ -1,18 +1,18 @@
 <script setup>
 import { watch, onMounted } from 'vue'
 import { useMainStore } from '../store/main'
-import MainService from '../services/MainService';
+import MainService from '../services/MainService'
 
 const store = useMainStore()
 
 const getMySettings = () => {
 	MainService.getMySettings()
-		.then(response => {
+		.then((response) => {
 			//console.log(response.data)
 			store.udaje_webu = response.data
 		})
 		.catch((error) => {
-			console.log(error);
+			console.error(error)
 		})
 }
 
@@ -26,12 +26,15 @@ const getTexts = () => {
 		})
 		.catch(function (error) {
 			console.error(error)
-		});
+		})
 }
 
-watch(() => store.user, () => {
-	getMySettings()
-})
+watch(
+	() => store.user,
+	() => {
+		getMySettings()
+	}
+)
 
 onMounted(() => {
 	// Načítanie nastavení
@@ -44,5 +47,3 @@ onMounted(() => {
 	store.getActualUser()
 })
 </script>
-
-<template></template>
